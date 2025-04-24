@@ -14,7 +14,9 @@ int main()
 	if(!ImportMesh(mesh))
 	{
 		cerr << "something went wrong while importing data" << endl;
+		return 1;
 	}
+	
 	
 	
     return 0;

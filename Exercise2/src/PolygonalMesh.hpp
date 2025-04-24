@@ -25,10 +25,10 @@ struct PolygonalMesh
 	// Cell2D
 	unsigned int NumCell2Ds = 0;
 	vector<unsigned int> Cell2DsId = {};
-	vector<unsigned int> NumVerticesCell2Ds = {};
-	vector<vector<unsigned int>> VerticesCell2Ds = {};
-	vector<unsigned int> NumEdgesCell2Ds = {};
-	vector<vector<unsigned int>> EdgesCell2Ds = {};
+	// vector<unsigned int> NumVerticesCell2Ds = {};
+	vector<vector<unsigned int>> Cell2DsVertices = {};
+	// vector<unsigned int> NumEdgesCell2Ds = {};
+	vector<vector<unsigned int>> Cell2DsEdges = {};
 	map<unsigned int, list<unsigned int>> MarkerCell2Ds = {};
 };
 

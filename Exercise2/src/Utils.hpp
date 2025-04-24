@@ -22,4 +22,9 @@ bool ImportCell0Ds(PolygonalMesh& mesh);
 // return the result of the reading, true if is successful, false otherwise
 bool ImportCell1Ds(PolygonalMesh& mesh);
 
+// Import the Cell2D properties from Cell2Ds.csv file
+// mesh: a PolygonalMesh struct
+// return the result of the reading, true if is successful, false otherwise
+bool ImportCell2Ds(PolygonalMesh& mesh);
+
 }

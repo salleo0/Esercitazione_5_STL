@@ -127,8 +127,21 @@ bool ImportCell1Ds(PolygonalMesh& mesh)
 		
 		unsigned int id;
 		unsigned int marker;
+		unsigned int Xcoord;
+		unsigned int Ycoord;
 		
-		converter >> id >> marker >> mesh.Cell1DsExtrema(0, id) >> mesh.Cell1DsExtrema(1, id);
+		converter >> id >> marker >> Xcoord >> Ycoord;
+		
+		// test per verificare che nessun bordo abbia lunghezza zero
+		if(Xcoord==Ycoord)
+		{
+			cerr << "at least one edge has zero length";
+			return false;
+		}
+		
+		mesh.Cell1DsExtrema(0, id) = Xcoord;
+		mesh.Cell1DsExtrema(0, id) = Ycoord;
+		
 		mesh.Cell0DsId.push_back(id);
 		
 		// Memorizza i marker
@@ -155,6 +168,70 @@ bool ImportCell2Ds(PolygonalMesh& mesh)
 	{
 		cerr << "unable to open Cell2Ds.csv file" << endl;
 		return false;
+	}
+	
+	// importo in una lista tutte le righe del file
+	list<string> listLines;
+	string line;
+	while (getline(file, line))
+		listLines.push_back(line);
+	
+	file.close();
+	
+	// remove header
+	listLines.pop_front();
+	
+	mesh.NumCell2Ds = listLines.size();
+	
+	if(mesh.NumCell2Ds == 0)
+	{
+		cerr << "there is no cell 2D" << endl;
+		return false;
+	}
+	
+	// salvo le informazioni nelle righe in mesh
+	mesh.Cell2DsId.reserve(mesh.NumCell2Ds);
+	mesh.Cell2DsVertices.reserve(mesh.NumCell2Ds);
+	mesh.Cell2DsEdges.reserve(mesh.NumCell2Ds);
+	
+	for (const string& str : listLines)
+	{
+		string line = str;
+		replace(line.begin(), line.end(), ';', ' ');
+		istringstream converter(line);
+		
+		unsigned int id;
+		unsigned int marker;
+		
+		converter >> id >> marker;
+		
+		mesh.Cell2DsId.push_back(id);
+		
+		// memorizzo i vertici
+		unsigned int numVertices;
+		converter >> numVertices;
+		vector<unsigned int> vertices(numVertices);
+		for(unsigned int i = 0; i < numVertices; i++)
+			converter >> vertices[i];
+		mesh.Cell2DsVertices.push_back(vertices);
+		
+		// memorizzo i bordi
+		unsigned int numEdges;
+		converter >> numEdges;
+		vector<unsigned int> edges(numEdges);
+		for(unsigned int i = 0; i < numEdges; i++)
+			converter >> edges[i];
+		mesh.Cell2DsEdges.push_back(edges);
+		
+		// memorizzo i marker
+		if(marker != 0) 
+		{
+			const auto it = mesh.MarkerCell2Ds.find(marker);
+			if(it == mesh.MarkerCell2Ds.end())
+				mesh.MarkerCell2Ds.insert({marker, {id}});
+			else
+				it->second.push_back(id);
+		}
 	}
 	
 	return true;
