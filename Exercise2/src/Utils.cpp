@@ -12,6 +12,8 @@ bool ImportMesh(PolygonalMesh& mesh)
     if(!ImportCell0Ds(mesh))
         return false;
 	
+	cout << "Numero di NumCell0Ds: " << mesh.NumCell0Ds << endl;
+	
     if(!ImportCell1Ds(mesh))
         return false;
 	
@@ -55,7 +57,7 @@ bool ImportCell0Ds(PolygonalMesh& mesh)
 	
 	// salvo le informazioni nelle righe in mesh
 	mesh.Cell0DsId.reserve(mesh.NumCell0Ds);
-	mesh.Cell0DsCoordinates = MatrixXd::Zero(2, mesh.NumCell0Ds);
+	mesh.Cell0DsCoordinates = MatrixXd::Zero(3, mesh.NumCell0Ds);
 	
 	for (const string& str : listLines)
 	{
