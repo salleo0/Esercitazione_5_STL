@@ -14,10 +14,10 @@ bool ImportMesh(PolygonalMesh& mesh)
 	
     if(!ImportCell1Ds(mesh))
         return false;
-	/*
+	
     if(!ImportCell2Ds(mesh))
         return false;
-	*/
+	
     return true;
 	
 }
