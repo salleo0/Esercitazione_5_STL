@@ -16,7 +16,13 @@ int main()
         cerr << "file not found" << endl;
         return 1;
     }
+	
+	/*
+	Gedim::UCDUtilities
+	utilities.ExportPoints("./Cell0Ds.inp", 
+							mesh.Cell0D
 
     return 0;
+	*/
 }
 
