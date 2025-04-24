@@ -12,8 +12,6 @@ bool ImportMesh(PolygonalMesh& mesh)
     if(!ImportCell0Ds(mesh))
         return false;
 	
-	cout << "Numero di NumCell0Ds: " << mesh.NumCell0Ds << endl;
-	
     if(!ImportCell1Ds(mesh))
         return false;
 	
@@ -142,7 +140,7 @@ bool ImportCell1Ds(PolygonalMesh& mesh)
 		}
 		
 		mesh.Cell1DsExtrema(0, id) = Xcoord;
-		mesh.Cell1DsExtrema(0, id) = Ycoord;
+		mesh.Cell1DsExtrema(1, id) = Ycoord;
 		
 		mesh.Cell0DsId.push_back(id);
 		
