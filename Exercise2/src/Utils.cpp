@@ -222,6 +222,15 @@ bool ImportCell2Ds(PolygonalMesh& mesh)
 		vector<unsigned int> vertices(numVertices);
 		for(unsigned int i = 0; i < numVertices; i++)
 			converter >> vertices[i];
+		
+		// test per verificare che il poligono identificato dai vertici 
+		// non abbia area nulla
+		if (!AreaOfPolygon(numVertices, vertices, mesh.Cell0DsCoordinates))
+		{
+			cerr << "at least one polygon has zero area" << endl;
+			return false;
+		}
+		
 		mesh.Cell2DsVertices.push_back(vertices);
 		
 		// memorizzo i bordi
@@ -257,5 +266,30 @@ void DisplayMap(const map<unsigned int, list<unsigned int>>& m) {
 			cout << el << " ";
 		cout << "}" << endl;
 	}
+}
+
+bool AreaOfPolygon(const unsigned int& numVertices,
+						const vector<unsigned int>& verticesId,
+						const MatrixXd& verticesCoord) 
+{	
+	double area = 0.0;
+	for (unsigned int i = 0; i < numVertices-1; i++)
+	{
+		const double &x1 = verticesCoord(0, verticesId[i]);
+		const double &y1 = verticesCoord(1, verticesId[i]);
+		const double &x2 = verticesCoord(0, verticesId[i+1]);
+		const double &y2 = verticesCoord(1, verticesId[i+1]);
+		
+		area += x1*y2 - x2*y1;
+	}
+	
+	area += verticesCoord(0, verticesId[numVertices-1])*verticesCoord(1, verticesId[0]) - verticesCoord(0, verticesId[0])*verticesCoord(1, verticesId[numVertices-1]);
+	
+	area = 0.5*abs(area);
+	
+	if (area == 0)
+		return false;
+	
+	return true;
 }
 		

@@ -32,3 +32,11 @@ bool ImportCell2Ds(PolygonalMesh& mesh);
 // Display a map where the second element is a std::list
 // m : a map structure
 void DisplayMap(const map<unsigned int, list<unsigned int>>& m);
+
+// Calculate the area of a polygon
+// verticesId: id of the vertices of the polygon
+// verticesCoord: coordinates of the vertices of the polygon
+// return true if the area is non zero, false otherwise
+bool AreaOfPolygon(const unsigned int& numVertices,
+						const vector<unsigned int>& verticesId,
+						const MatrixXd& verticesCoord);
