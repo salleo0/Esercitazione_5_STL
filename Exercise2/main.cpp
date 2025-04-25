@@ -60,26 +60,5 @@ int main()
                                  cell1Ds_properties);
     }
 	
-	{
-		vector<Gedim::UCDProperty<double>> cell2Ds_properties(1);
-		
-		cell2Ds_properties[0].Label = "Marker";
-		cell2Ds_properties[0].UnitLabel = "-";
-        cell2Ds_properties[0].NumComponents = 1;
-		
-		vector<double> cell2Ds_marker(mesh.NumCell2Ds, 0.0);
-		for (const auto &m : mesh.MarkerCell2Ds)
-			for (const unsigned int id : m.second)
-				cell2Ds_marker.at(id) = m.first;
-		
-		cell2Ds_properties[0].Data = cell2Ds_marker.data();
-		
-		utilities.ExportPolygons("./Cell2Ds.inp",
-									mesh.Cell0DsCoordinates,
-									mesh.Cell2DsVertices,
-									{},
-									cell2Ds_properties);
-	}
-	
     return 0;
 }

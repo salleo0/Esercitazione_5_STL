@@ -11,12 +11,21 @@ bool ImportMesh(PolygonalMesh& mesh)
 
     if(!ImportCell0Ds(mesh))
         return false;
+	cout << endl << "***************************" << endl;
+	cout << "Display markers of Cell0D" << endl;
+	DisplayMap(mesh.MarkerCell0Ds);
 	
     if(!ImportCell1Ds(mesh))
         return false;
+	cout << endl << "***************************" << endl;
+	cout << "Display markers of Cell1D" << endl;
+	DisplayMap(mesh.MarkerCell1Ds);
 	
     if(!ImportCell2Ds(mesh))
         return false;
+	cout << endl << "***************************" << endl;
+	cout << "Display markers of Cell2D" << endl;
+	DisplayMap(mesh.MarkerCell2Ds);
 	
     return true;
 	
@@ -133,7 +142,7 @@ bool ImportCell1Ds(PolygonalMesh& mesh)
 		converter >> id >> marker >> Xcoord >> Ycoord;
 		
 		// test per verificare che nessun bordo abbia lunghezza zero
-		if(Xcoord==Ycoord)
+		if(Xcoord == Ycoord)
 		{
 			cerr << "at least one edge has zero length";
 			return false;
@@ -238,3 +247,15 @@ bool ImportCell2Ds(PolygonalMesh& mesh)
 }
 
 }
+
+void DisplayMap(const map<unsigned int, list<unsigned int>>& m) {
+	cout << "Marker" << "\tIds" << endl;
+	for (const auto i : m)
+	{
+		cout << i.first << "\t{ ";
+		for (const auto& el : i.second)
+			cout << el << " ";
+		cout << "}" << endl;
+	}
+}
+		

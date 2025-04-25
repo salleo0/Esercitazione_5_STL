@@ -28,3 +28,7 @@ bool ImportCell1Ds(PolygonalMesh& mesh);
 bool ImportCell2Ds(PolygonalMesh& mesh);
 
 }
+
+// Display a map where the second element is a std::list
+// m : a map structure
+void DisplayMap(const map<unsigned int, list<unsigned int>>& m);
