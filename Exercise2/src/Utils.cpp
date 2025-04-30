@@ -287,7 +287,7 @@ bool AreaOfPolygon(const unsigned int& numVertices,
 	
 	area = 0.5*abs(area);
 	
-	if (area == 0)
+	if (area < 1e-16)
 		return false;
 	
 	return true;
