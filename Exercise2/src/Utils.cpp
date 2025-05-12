@@ -151,7 +151,7 @@ bool ImportCell1Ds(PolygonalMesh& mesh)
 		mesh.Cell1DsExtrema(0, id) = Xcoord;
 		mesh.Cell1DsExtrema(1, id) = Ycoord;
 		
-		mesh.Cell0DsId.push_back(id);
+		mesh.Cell1DsId.push_back(id);
 		
 		// Memorizza i marker
 		if(marker != 0)
